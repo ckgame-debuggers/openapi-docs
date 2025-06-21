@@ -32,7 +32,7 @@ export function BlogsList({ blogs, pageSize = 10 }: BlogsListProps) {
   return (
     <>
       <div className="mx-auto grid max-w-[1200px] grid-cols-3 gap-1 md:px-20">
-        {paginatedBlogs.map(({ frontmatter, fileName }, idx) => (
+        {paginatedBlogs.map(({ frontmatter, fileName }) => (
           <>
             <a href={`/blogs/${fileName}`}>
               <img

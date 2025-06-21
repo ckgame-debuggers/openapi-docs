@@ -18,7 +18,7 @@ const docs = defineCollection({
   }),
 });
 
-const notce = defineCollection({
+const notices = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/contents/notices' }),
   schema: z.object({
     title: z.string(),
@@ -26,4 +26,4 @@ const notce = defineCollection({
   }),
 });
 
-export const collections = { blog, docs };
+export const collections = { blog, docs, notices };

@@ -11,6 +11,10 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [mdx(), react()],
   site: 'https://developers.ckdebuggers.com/',
+  base: '/',
+  build: {
+    assets: 'assets',
+  },
   vite: {
     plugins: [tailwindcss()],
   },

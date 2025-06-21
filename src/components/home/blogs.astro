@@ -33,7 +33,7 @@ const blogs = Object.entries(blogModules)
 </a>
 <div class="my-10 grid grid-cols-1 gap-1 md:grid-cols-3">
   {
-    blogs.slice(0, 3).map(({ frontmatter, fileName }, idx) => (
+    blogs.slice(0, 3).map(({ frontmatter, fileName }) => (
       <>
         <a href={`/blogs/${fileName}`}>
           <div class="flex flex-col gap-5">
