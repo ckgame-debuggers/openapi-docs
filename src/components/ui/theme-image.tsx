@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 /**
  * Props for ThemeImage component.
@@ -17,16 +17,16 @@ type ThemeImageProps = {
 export default function ThemeImage({
   lightSrc,
   darkSrc,
-  alt = "",
+  alt = '',
   ...props
 }: ThemeImageProps) {
-  const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (typeof document !== "undefined") {
-      return document.documentElement.classList.contains("dark")
-        ? "dark"
-        : "light";
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('dark')
+        ? 'dark'
+        : 'light';
     }
-    return "light";
+    return 'light';
   });
 
   // Generate a unique key for each reload to force <img> reload
@@ -40,7 +40,7 @@ export default function ThemeImage({
     // Update theme if <html> class changes
     const updateTheme = () => {
       setTheme(
-        document.documentElement.classList.contains("dark") ? "dark" : "light"
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light'
       );
     };
 
@@ -51,34 +51,34 @@ export default function ThemeImage({
     const observer = new MutationObserver(updateTheme);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["class"],
+      attributeFilter: ['class'],
     });
 
     // Listen for system theme changes (if user hasn't set a theme)
-    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
     const handleSystemTheme = () => {
-      const stored = localStorage.getItem("theme");
-      if (!stored || stored === "system") {
+      const stored = localStorage.getItem('theme');
+      if (!stored || stored === 'system') {
         updateTheme();
       }
     };
-    mql.addEventListener("change", handleSystemTheme);
+    mql.addEventListener('change', handleSystemTheme);
 
     // Force reloadKey to change on every mount (i.e., every refresh)
     setReloadKey(Date.now());
 
     return () => {
       observer.disconnect();
-      mql.removeEventListener("change", handleSystemTheme);
+      mql.removeEventListener('change', handleSystemTheme);
     };
     // eslint-disable-next-line
   }, [lightSrc, darkSrc]);
 
   // Add a cache-busting query param to force reload on every refresh
   const src =
-    (theme === "dark" ? darkSrc : lightSrc) +
-    (/\?/.test(theme === "dark" ? darkSrc : lightSrc) ? "&" : "?") +
-    "v=" +
+    (theme === 'dark' ? darkSrc : lightSrc) +
+    (/\?/.test(theme === 'dark' ? darkSrc : lightSrc) ? '&' : '?') +
+    'v=' +
     reloadKey;
 
   return <img src={src} alt={alt} {...props} />;

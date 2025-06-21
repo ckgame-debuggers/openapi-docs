@@ -1,4 +1,4 @@
-import type React from "react";
+import type React from 'react';
 
 export default function WithUsItem({
   title,
@@ -12,8 +12,8 @@ export default function WithUsItem({
   docs: string;
 }) {
   return (
-    <div className="bg-sidebar p-5 rounded-md flex flex-col justify-between gap-5">
-      <div className="flex w-full justify-between gap-5 items-center">
+    <div className="bg-sidebar flex flex-col justify-between gap-5 rounded-md p-5">
+      <div className="flex w-full items-center justify-between gap-5">
         <h3 className="text-xl">{title}</h3>
         {children}
       </div>
@@ -23,7 +23,7 @@ export default function WithUsItem({
       <div className="w-full">
         <a
           href={docs}
-          className="w-full bg-accent block rounded-md text-center p-2"
+          className="bg-accent block w-full rounded-md p-2 text-center"
         >
           문서
         </a>

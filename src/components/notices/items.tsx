@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 type Notice = {
   frontmatter: {
@@ -30,12 +30,12 @@ export function NoticesList({ notices, pageSize = 10 }: NoticesListProps) {
 
   return (
     <>
-      <div className="max-w-[1200px] md:px-20 mx-auto">
+      <div className="mx-auto max-w-[1200px] md:px-20">
         {paginatedNotices.map(({ frontmatter, fileName }, idx) => (
           <React.Fragment key={fileName}>
             <a href={`/notices/${fileName}`}>
-              <div className="p-6 flex gap-5 items-center">
-                <h3 className="font-bold text-lg">{frontmatter.title}</h3>
+              <div className="flex items-center gap-5 p-6">
+                <h3 className="text-lg font-bold">{frontmatter.title}</h3>
                 <div className="text-sm text-gray-500">
                   {frontmatter.pubDate
                     ? new Date(frontmatter.pubDate).toLocaleDateString()
@@ -44,20 +44,20 @@ export function NoticesList({ notices, pageSize = 10 }: NoticesListProps) {
               </div>
             </a>
             {idx === paginatedNotices.length - 1 ? null : (
-              <div className="w-full h-[1px] bg-secondary"></div>
+              <div className="bg-secondary h-[1px] w-full"></div>
             )}
           </React.Fragment>
         ))}
       </div>
       {totalPages > 1 && (
-        <nav className="flex justify-center mt-10 gap-2">
+        <nav className="mt-10 flex justify-center gap-2">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className={`px-3 py-1 rounded ${
+            className={`rounded px-3 py-1 ${
               currentPage === 1
-                ? "text-gray-400 pointer-events-none"
-                : "hover:bg-gray-100"
+                ? 'pointer-events-none text-gray-400'
+                : 'hover:bg-gray-100'
             }`}
           >
             이전
@@ -68,12 +68,12 @@ export function NoticesList({ notices, pageSize = 10 }: NoticesListProps) {
               <button
                 key={pageNum}
                 onClick={() => handlePageChange(pageNum)}
-                className={`px-3 py-1 rounded ${
+                className={`rounded px-3 py-1 ${
                   currentPage === pageNum
-                    ? "bg-primary text-white"
-                    : "hover:bg-gray-100"
+                    ? 'bg-primary text-white'
+                    : 'hover:bg-gray-100'
                 }`}
-                aria-current={currentPage === pageNum ? "page" : undefined}
+                aria-current={currentPage === pageNum ? 'page' : undefined}
               >
                 {pageNum}
               </button>
@@ -82,10 +82,10 @@ export function NoticesList({ notices, pageSize = 10 }: NoticesListProps) {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={`px-3 py-1 rounded ${
+            className={`rounded px-3 py-1 ${
               currentPage === totalPages
-                ? "text-gray-400 pointer-events-none"
-                : "hover:bg-gray-100"
+                ? 'pointer-events-none text-gray-400'
+                : 'hover:bg-gray-100'
             }`}
           >
             다음

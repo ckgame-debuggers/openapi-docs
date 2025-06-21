@@ -1,5 +1,5 @@
 ---
-const blogModules = import.meta.glob("../../contents/blog/**/*.{md,mdx}", {
+const blogModules = import.meta.glob('../../contents/blog/**/*.{md,mdx}', {
   eager: true,
 });
 
@@ -10,7 +10,7 @@ const blogs = Object.entries(blogModules)
     // { frontmatter, file, url, Content, ... }
     // 타입 안전을 위해 구조 분해
     const { frontmatter, Content } = mod as {
-      frontmatter: { title: string; pubDate: string | Date, author: string };
+      frontmatter: { title: string; pubDate: string | Date; author: string };
       Content: any;
     };
     // 파일 이름만 추출 (확장자 제거)
@@ -26,26 +26,30 @@ const blogs = Object.entries(blogModules)
   });
 ---
 
-<a href="/blogs" class="relative w-full h-36 my-10 rounded-md border border-border flex items-center justify-center overflow-hidde bg-[url(/banners/blogs.png)] bg-center bg-cover">
+<a
+  href="/blogs"
+  class="border-border overflow-hidde relative my-10 flex h-36 w-full items-center justify-center rounded-md border bg-[url(/banners/blogs.png)] bg-cover bg-center"
+>
 </a>
-<div class="grid grid-cols-1 md:grid-cols-3 my-10">
-    {blogs
-      .slice(0,3)
-      .map(({ frontmatter, fileName }, idx) => (
+<div class="my-10 grid grid-cols-1 gap-1 md:grid-cols-3">
+  {
+    blogs.slice(0, 3).map(({ frontmatter, fileName }, idx) => (
       <>
         <a href={`/blogs/${fileName}`}>
-          <div class="flex gap-5 flex-col">
-            <img class="rounded-md" src={`/blog/thumbnails/${fileName}.png`}/>
+          <div class="flex flex-col gap-5">
+            <img class="rounded-md" src={`/blog/thumbnails/${fileName}.png`} />
             <div>
-                <h3 class="font-bold text-lg">{frontmatter.title}</h3>
-                <div class="text-sm text-gray-500">
-                    {frontmatter.author} - {frontmatter.pubDate
-                        ? new Date(frontmatter.pubDate).toLocaleDateString()
-                        : null}
-                </div>
+              <h3 class="text-lg font-bold">{frontmatter.title}</h3>
+              <div class="text-sm text-gray-500">
+                {frontmatter.author} -{' '}
+                {frontmatter.pubDate
+                  ? new Date(frontmatter.pubDate).toLocaleDateString()
+                  : null}
+              </div>
             </div>
           </div>
         </a>
       </>
-    ))}
+    ))
+  }
 </div>

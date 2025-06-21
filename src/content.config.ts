@@ -1,8 +1,8 @@
-import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/contents/blog" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/contents/blog' }),
   schema: z.object({
     title: z.string(),
     author: z.string(),
@@ -11,7 +11,7 @@ const blog = defineCollection({
 });
 
 const docs = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/contents/docs" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/contents/docs' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -19,7 +19,7 @@ const docs = defineCollection({
 });
 
 const notce = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/contents/notices" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/contents/notices' }),
   schema: z.object({
     title: z.string(),
     pubDate: z.coerce.date(),

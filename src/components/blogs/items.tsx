@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 type Blog = {
   frontmatter: {
@@ -31,39 +31,37 @@ export function BlogsList({ blogs, pageSize = 10 }: BlogsListProps) {
 
   return (
     <>
-      <div className="max-w-[1200px] md:px-20 mx-auto grid grid-cols-3">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-3 gap-1 md:px-20">
         {paginatedBlogs.map(({ frontmatter, fileName }, idx) => (
           <>
             <a href={`/blogs/${fileName}`}>
               <img
                 src={`/blog/thumbnails/${fileName}.png`}
                 alt={`blog-${fileName}-thumbnail`}
+                className="rounded-md"
               />
-              <div className="py-6 flex flex-col gap-2">
-                <h3 className="font-bold text-lg">{frontmatter.title}</h3>
+              <div className="flex flex-col gap-2 py-6">
+                <h3 className="text-lg font-bold">{frontmatter.title}</h3>
                 <div className="text-sm text-gray-500">
-                  {frontmatter.author} -{" "}
+                  {frontmatter.author} -{' '}
                   {frontmatter.pubDate
                     ? new Date(frontmatter.pubDate).toLocaleDateString()
                     : null}
                 </div>
               </div>
             </a>
-            {idx === paginatedBlogs.length - 1 ? null : (
-              <div className="w-full h-[1px] bg-secondary"></div>
-            )}
           </>
         ))}
       </div>
       {totalPages > 1 && (
-        <nav className="flex justify-center mt-10 gap-2">
+        <nav className="mt-10 flex justify-center gap-2">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className={`px-3 py-1 rounded ${
+            className={`rounded px-3 py-1 ${
               currentPage === 1
-                ? "text-gray-400 pointer-events-none"
-                : "hover:bg-gray-100"
+                ? 'pointer-events-none text-gray-400'
+                : 'hover:bg-gray-100'
             }`}
           >
             이전
@@ -74,12 +72,12 @@ export function BlogsList({ blogs, pageSize = 10 }: BlogsListProps) {
               <button
                 key={pageNum}
                 onClick={() => handlePageChange(pageNum)}
-                className={`px-3 py-1 rounded ${
+                className={`rounded px-3 py-1 ${
                   currentPage === pageNum
-                    ? "bg-primary text-white"
-                    : "hover:bg-gray-100"
+                    ? 'bg-primary text-white'
+                    : 'hover:bg-gray-100'
                 }`}
-                aria-current={currentPage === pageNum ? "page" : undefined}
+                aria-current={currentPage === pageNum ? 'page' : undefined}
               >
                 {pageNum}
               </button>
@@ -88,10 +86,10 @@ export function BlogsList({ blogs, pageSize = 10 }: BlogsListProps) {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={`px-3 py-1 rounded ${
+            className={`rounded px-3 py-1 ${
               currentPage === totalPages
-                ? "text-gray-400 pointer-events-none"
-                : "hover:bg-gray-100"
+                ? 'pointer-events-none text-gray-400'
+                : 'hover:bg-gray-100'
             }`}
           >
             다음

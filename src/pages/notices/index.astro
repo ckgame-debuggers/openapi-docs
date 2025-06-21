@@ -1,9 +1,9 @@
 ---
-import Layout from "@/layouts/Layout.astro"
-import "@/styles/global.css"
-import {NoticesList} from "@/components/notices/items"
+import Layout from '@/layouts/Layout.astro';
+import '@/styles/global.css';
+import { NoticesList } from '@/components/notices/items';
 
-const noticeModules = import.meta.glob("../../contents/notices/**/*.{md,mdx}", {
+const noticeModules = import.meta.glob('../../contents/notices/**/*.{md,mdx}', {
   eager: true,
 });
 
@@ -23,12 +23,12 @@ const notices = Object.entries(noticeModules)
     const dateB = new Date(b.frontmatter.pubDate).getTime();
     return dateB - dateA;
   });
-
 ---
+
 <Layout>
-    <main class="mb-24">
-        <h1 class="text-center text-3xl font-bold my-10">사이트 공지사항</h1>
-        <NoticesList notices={notices} client:load/>
-        <div class="h-10"></div>
-    </main>
+  <main class="mb-24">
+    <h1 class="my-10 text-center text-3xl font-bold">사이트 공지사항</h1>
+    <NoticesList notices={notices} client:load />
+    <div class="h-10"></div>
+  </main>
 </Layout>

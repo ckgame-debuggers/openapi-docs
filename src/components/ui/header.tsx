@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { ModeToggle } from "./mode-toggle";
-import ThemeImage from "./theme-image";
+import { useEffect, useState } from 'react';
+import { ModeToggle } from './mode-toggle';
+import ThemeImage from './theme-image';
 
 export default function GlobalHeader() {
   const [isRoot, setIsRoot] = useState(false);
@@ -8,14 +8,14 @@ export default function GlobalHeader() {
   useEffect(() => {
     // Handler to check if current path is root
     const checkIsRoot = () => {
-      setIsRoot(window.location.pathname === "/");
+      setIsRoot(window.location.pathname === '/');
     };
 
     // Initial check on mount (handles reload)
     checkIsRoot();
 
     // Listen for popstate (back/forward navigation)
-    window.addEventListener("popstate", checkIsRoot);
+    window.addEventListener('popstate', checkIsRoot);
 
     // Listen for pushState/replaceState (client-side navigation)
     const origPushState = window.history.pushState;
@@ -31,11 +31,11 @@ export default function GlobalHeader() {
     };
 
     // Listen for hashchange (in case of hash navigation)
-    window.addEventListener("hashchange", checkIsRoot);
+    window.addEventListener('hashchange', checkIsRoot);
 
     return () => {
-      window.removeEventListener("popstate", checkIsRoot);
-      window.removeEventListener("hashchange", checkIsRoot);
+      window.removeEventListener('popstate', checkIsRoot);
+      window.removeEventListener('hashchange', checkIsRoot);
       window.history.pushState = origPushState;
       window.history.replaceState = origReplaceState;
     };
@@ -43,16 +43,16 @@ export default function GlobalHeader() {
 
   return (
     <header
-      className={`rounded-md w-full top-0 z-50 ${
-        isRoot ? "absolute top-0" : ""
+      className={`top-0 z-50 w-full rounded-md ${
+        isRoot ? 'absolute top-0' : ''
       }`}
     >
       <div
-        className={`flex justify-between items-center max-w-[1200px] mx-auto p-8 ${
-          isRoot ? " text-white" : ""
+        className={`mx-auto flex max-w-[1200px] items-center justify-between p-8 ${
+          isRoot ? 'text-white' : ''
         }`}
       >
-        <div className="flex gap-10 items-center">
+        <div className="flex items-center gap-10">
           <a href="/">
             {isRoot ? (
               <img src="/brand/logo.png" alt="global-logo" width={200} />
@@ -65,7 +65,7 @@ export default function GlobalHeader() {
               />
             )}
           </a>
-          <div className="flex uppercase text-lg gap-5">
+          <div className="flex gap-5 text-lg uppercase">
             <a href="/docs">docs</a>
             <a href="/blogs">blog</a>
           </div>

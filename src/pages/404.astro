@@ -1,19 +1,18 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import "@/styles/global.css"
+import Layout from '@/layouts/Layout.astro';
+import '@/styles/global.css';
 ---
 
 <Layout>
-    <main class="flex flex-col items-center py-10">
-        <img src="/404.png" width="300" alt="404"/>
-        <h1 class="text-3xl text-center font-bold">404: Not Found</h1>
-        <p class="text-gray-500 text-center mt-5">
-            요청하신 경로 
-            <code>
-                {typeof Astro.request.url === "string"
-                  ? Astro.request.url : ""}
-            </code>는<br/>
-            저희 서버에 존재하지 않는 것 같아요!
-        </p>
-    </main>
+  <main class="flex flex-col items-center py-10">
+    <img src="/404.png" width="300" alt="404" />
+    <h1 class="text-center text-3xl font-bold">404: Not Found</h1>
+    <p class="mt-5 text-center text-gray-500">
+      요청하신 경로
+      <code>
+        {typeof Astro.request.url === 'string' ? Astro.request.url : ''}
+      </code>는<br />
+      저희 서버에 존재하지 않는 것 같아요!
+    </p>
+  </main>
 </Layout>

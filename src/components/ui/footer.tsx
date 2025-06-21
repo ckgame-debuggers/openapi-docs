@@ -1,7 +1,7 @@
 export default function GlobalFooter() {
   return (
-    <footer className="bg-card p-10">
-      <div className="max-w-[1200px] text-card-foreground flex justify-between opacity-40">
+    <footer className="bg-card p-10 pb-32">
+      <div className="text-card-foreground flex max-w-[1200px] justify-between opacity-40">
         <p className="text-sm">
           Copyright © 2024 - {new Date().getFullYear()} Debuggers. All rights
           reserved.
