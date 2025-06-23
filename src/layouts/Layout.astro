@@ -96,7 +96,7 @@ import GlobalHeader from '../components/ui/header';
         });
       }
     </script>
-    <GlobalHeader client:load />
+    <GlobalHeader client:only="react" />
     <slot />
     <GlobalFooter />
   </body>

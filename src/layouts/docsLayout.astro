@@ -63,7 +63,7 @@ const sidebar: Sidebar = docs.reduce((acc, doc) => {
   >
     <aside class="border-border w-64 overflow-scroll border-r px-4 py-8">
       <nav>
-        <DocsSidebar sidebar={sidebar} client:load />
+        <DocsSidebar sidebar={sidebar} client:only="react" />
       </nav>
     </aside>
     <div class="h-full flex-1 overflow-scroll px-8">

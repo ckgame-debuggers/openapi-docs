@@ -28,7 +28,7 @@ const notices = Object.entries(noticeModules)
 <Layout>
   <main class="mb-24">
     <h1 class="my-10 text-center text-3xl font-bold">사이트 공지사항</h1>
-    <NoticesList notices={notices} client:load />
+    <NoticesList notices={notices} client:only="react" />
     <div class="h-10"></div>
   </main>
 </Layout>
