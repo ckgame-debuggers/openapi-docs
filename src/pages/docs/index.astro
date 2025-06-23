@@ -1,7 +1,4 @@
----
-export const prerender = false;
-
-if (Astro.request.method === 'GET') {
-  return Astro.redirect('/docs/openapi/getting-started');
-}
----
+<meta http-equiv="refresh" content="0;url=/docs/openapi/getting-started" />
+<script>
+  window.location.href = '/docs/openapi/getting-started';
+</script>

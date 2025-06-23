@@ -7,10 +7,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 import react from '@astrojs/react';
 
-import node from '@astrojs/node';
-
 // https://astro.build/config
 export default defineConfig({
+  output: 'static',
   integrations: [mdx(), react()],
   site: 'https://developers.ckdebuggers.com/',
 
@@ -21,8 +20,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
-  adapter: node({
-    mode: 'standalone',
-  }),
 });
