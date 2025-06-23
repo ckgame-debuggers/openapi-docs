@@ -1,0 +1,130 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { type GetStaticPaths, type MDXInstance } from 'astro';
+import { relative } from 'node:path';
+import '@/styles/global.css';
+import { mdxComponents } from '@/components/mdx/mdx-components';
+import DocsLayout from '@/layouts/docsLayout.astro';
+import StatusBadge from '@/components/ui/status-badge';
+import ThemeImage from '@/components/ui/theme-image';
+
+// MDX frontmatter의 타입을 정의합니다.
+interface Frontmatter {
+  title: string;
+  status?: 'verified' | 'develop' | 'testing' | 'deprecated';
+  category: string;
+  product: string;
+  lastUpdate: string | Date;
+}
+
+// Astro.glob()이 반환하는 MDX 모듈의 타입을 정의합니다.
+type DocModule = MDXInstance<Frontmatter>;
+
+export const getStaticPaths = (async () => {
+  const docs: DocModule[] = await Astro.glob(
+    '../../../contents/docs/**/*.{md,mdx}'
+  );
+
+  const sorted = docs
+    .map(doc => {
+      const relativePath = relative(
+        process.cwd() + '/src/contents/docs',
+        doc.file
+      );
+      const pathWithoutExt = relativePath.replace(/\.(md|mdx)$/, '');
+      const slugArray = pathWithoutExt.split('/');
+
+      return {
+        ...doc,
+        slug: slugArray,
+        lastUpdate: new Date(doc.frontmatter.lastUpdate),
+      };
+    })
+    .sort((a, b) => b.lastUpdate.getTime() - a.lastUpdate.getTime());
+
+  return sorted.map((doc, idx) => {
+    const prevDocs = sorted.slice(idx + 1);
+    const nextDocs = sorted.slice(0, idx);
+
+    const prev = prevDocs.find(
+      d => d.frontmatter.product === doc.frontmatter.product
+    )
+      ? {
+          slug: prevDocs.find(
+            d => d.frontmatter.product === doc.frontmatter.product
+          )!.slug,
+          title: prevDocs.find(
+            d => d.frontmatter.product === doc.frontmatter.product
+          )!.frontmatter.title,
+        }
+      : null;
+
+    const next = nextDocs.find(
+      d => d.frontmatter.product === doc.frontmatter.product
+    )
+      ? {
+          slug: nextDocs.find(
+            d => d.frontmatter.product === doc.frontmatter.product
+          )!.slug,
+          title: nextDocs.find(
+            d => d.frontmatter.product === doc.frontmatter.product
+          )!.frontmatter.title,
+        }
+      : null;
+
+    console.log(doc.slug.join('/'));
+
+    return {
+      params: { slug: doc.slug.join('/') },
+      props: {
+        doc,
+        prev,
+        next,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { doc, prev, next } = Astro.props;
+const { Content, frontmatter } = doc;
+---
+
+<Layout>
+  <DocsLayout>
+    <main class="mx-auto max-w-[700px] px-2 md:px-5">
+      <div class="md:h-10"></div>
+      <article>
+        <div class="mb-2 flex items-center gap-5">
+          <h1 class="text-4xl font-bold">{frontmatter.title}</h1>
+          {
+            frontmatter.status && (
+              <StatusBadge status={frontmatter.status} client:load />
+            )
+          }
+        </div>
+        <p class="text-gray-500">
+          Last update - {
+            new Date(frontmatter.lastUpdate).toLocaleDateString('ko-KR')
+          }
+        </p>
+        <div class="flex w-full flex-col gap-5 break-keep">
+          <Content components={mdxComponents} />
+        </div>
+      </article>
+      <div class="bg-secondary my-10 h-0.5 w-full"></div>
+      <div
+        class="border-border bg-secondary/30 flex flex-col items-center gap-2 rounded-lg border p-8 text-center"
+      >
+        <ThemeImage
+          client:load
+          darkSrc="/brand/logo.png"
+          lightSrc="/brand/logo-dark.png"
+          width={200}
+          alt="Debuggers Logo"
+          class="drop-shadow-lg"
+        />
+      </div>
+    </main>
+    <div class="h-24"></div>
+  </DocsLayout>
+</Layout>

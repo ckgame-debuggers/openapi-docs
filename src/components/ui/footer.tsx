@@ -1,10 +1,12 @@
 export default function GlobalFooter() {
   return (
-    <footer className="bg-card p-10 pb-32">
-      <div className="text-card-foreground flex max-w-[1200px] justify-between opacity-40">
+    <footer className="dark:bg-card bg-gray-100 p-10 pb-32">
+      <div className="text-card-foreground mx-auto flex max-w-[1200px] justify-between opacity-40">
         <p className="text-sm">
           Copyright © 2024 - {new Date().getFullYear()} Debuggers. All rights
           reserved.
+          <br />
+          Made with ❤️ by Debuggers.
         </p>
         <div className="flex gap-3 uppercase">
           <a href="https://ckdebuggers.com/">

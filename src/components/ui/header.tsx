@@ -43,6 +43,7 @@ export default function GlobalHeader() {
 
   return (
     <header
+      id="global-header"
       className={`top-0 z-50 w-full rounded-md ${
         isRoot ? 'absolute top-0' : ''
       }`}

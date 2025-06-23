@@ -3,17 +3,7 @@ import Layout from "../../../layouts/Layout.astro";
 import { type GetStaticPaths, type MDXInstance } from "astro";
 import { basename, extname } from "node:path";
 import "@/styles/global.css";
-import H1 from "../../../components/mdx/H1.astro";
-import H2 from "../../../components/mdx/H2.astro";
-import H3 from "../../../components/mdx/H3.astro";
-import H4 from "../../../components/mdx/H4.astro";
-import H5 from "../../../components/mdx/H5.astro";
-import H6 from "../../../components/mdx/H6.astro";
-import P from "../../../components/mdx/P.astro";
-import A from "../../../components/mdx/A.astro";
-import Strong from "../../../components/mdx/Strong.astro";
-import Em from "../../../components/mdx/Em.astro";
-import Blockquote from "../../../components/mdx/Blockquote.astro";
+import { mdxComponents } from '@/components/mdx/mdx-components';
 
 // MDX frontmatter의 타입을 정의합니다.
 interface Frontmatter {
@@ -179,19 +169,7 @@ const { Content, frontmatter } = blog;
       <div class="my-10 flex">
         <div class="flex flex-col gap-5 w-full">
           <Content 
-            components={{
-              h1: H1,
-              h2: H2,
-              h3: H3,
-              h4: H4,
-              h5: H5,
-              h6: H6,
-              p: P,
-              a: A,
-              strong: Strong,
-              em: Em,
-              blockquote: Blockquote,
-            }}
+            components={mdxComponents}
           />
         </div>
         <div>
@@ -200,50 +178,55 @@ const { Content, frontmatter } = blog;
       </div>
     </article>
     <div class="flex flex-col gap-2">
-      {prev && (
-        <a
-          href={`/blogs/${prev.id}`}
-          class="border-1 border-border p-5 flex gap-3 hover:underline rounded-md"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6 text-secondary"
+      
+      {
+        prev && (
+          <a
+            href={`/notices/${prev.id}`}
+            class="border-border flex gap-3 rounded-md border-1 p-5 hover:underline"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
-            />
-          </svg>
-          이전 글: {prev.title}
-        </a>
-      )}
-      {next && (
-        <a
-          href={`/blogs/${next.id}`}
-          class="border-1 border-border p-5 flex gap-3 hover:underline rounded-md"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6 text-secondary"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="dark:text-secondary size-6 text-black"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+              />
+            </svg>
+            이전 글: {prev.title}
+          </a>
+        )
+      }
+      {
+        next && (
+          <a
+            href={`/notices/${next.id}`}
+            class="border-border flex gap-3 rounded-md border-1 p-5 hover:underline"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-            />
-          </svg>
-          다음 글: {next.title}
-        </a>
-      )}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="dark:text-secondary size-6 text-black"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+              />
+            </svg>
+            다음 글: {next.title}
+          </a>
+        )
+      }
     </div>
     <div class="h-24 "></div>
   </main>
